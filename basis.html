@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+        <link href="styles.css" rel="stylesheet">
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <title>Basis</title>
+    </head>
+    <body>
+        <header>
+            <h1>Linear Algebra: Vector Spaces</h1>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="spaces.html">Vector Spaces</a>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-link" href="basis.html">Basis</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="orthogonalsets.html">Orthogonal Sets</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="eigenmatrices.html">Eigenmatrices</a>
+                  </li>
+                </ul>
+            </div>
+            </nav>
+        </header>
+        <main>
+            <div id = "spanning">
+                <h2>SPANNING SETS</h2>
+                
+                <p>In the previous section, we touched briefly on the fact that a plane can be thought of as a linear combinaton of any two vectors on that plane. There
+                is actually a term for this kind of linear combination: the span of a set of vectors \(\{\textbf{v}_1, \textbf{v}_2, . . . , \textbf{v}_n\}\) is the set of all linear combinations
+                of those vectors: \(t_1\textbf{v}_1 + t_2\textbf{v}_2 + . . . + t_n\textbf{v}_n\) = \(\textrm{span}\{\textbf{v}_1, \textbf{v}_2, . . ., \textbf{v}_n\}\), where \(t_i \in \mathbb{R } \, \forall \, 1 \leq i \leq n\).
+                Note that if the set \(S\) is a subset of some vector space \(V\), then \(\textrm{span}\{S\}\) will be a subspace of \(V\). The proof of this is similar to the examples done in the previous section, wherein the relevant steps
+                immediately follow from the associativity and distributivity of scalar multiplication.
+                <br><br>
+                A natural question that may arise regarding the study of these spanning sets is to proving whether or not two spans are equal to each other. This can be proven with the help of the following theorem:
+                </p>
+                <div class = "theorem">
+                    <h3 style="text-align: center;">THEOREM II:</h3>
+                    $$ \textrm{Let } U = \textrm{span} \{\textbf{v}_1, . . . , \textbf{v}_n\}, v_i \in \mathbb{R}^n \, \, \forall v_i, 1 \leq i \leq n \textrm{ and } W \textrm{ be a subspace of } \mathbb{R}^n.
+                    \textrm{ Then, if all of } \textbf{v}_i \in W \implies U \subseteq W. $$
+                </div>
+                
+                <p>
+                The idea for the proof of this theorem is simple: if all of the vectors making up the span of \(U\) belong to \(W\), then by from following the statements regarding the definition of a vector subspace, we have that
+                \(cv_i\) is also in \(W, c \in \mathbb{R}\). Then, combining closure under scalar multiplication with closure under vector addition gives you the set of \(U\), showing that any vector in \(\textrm{span}\{U\}\)
+                is also in \(W\), hence completing the proof. We can then use this theorem to prove that two spanning sets are equal by showing that both of them are subsets of each other. For example: \( A = \textrm{span}\{\textbf{x}, \textbf{y}\}\ =
+                B = \textrm{span}\{\textbf{x}+\textbf{y}, \textbf{x}-\textbf{y}\}\) because \(\textbf{x}+\textbf{y} = 1\textbf{x} + 1\textbf{y}, \textbf{x}-\textbf{y} = 1\textbf{x} + (-1\textbf{y}) \implies A \subseteq B\) and \(\textbf{x} =
+                \frac{1}{2}(\textbf{x} + \textbf{y}) + \frac{1}{2}(\textbf{x} - \textbf{y}), \textbf{y} = \frac{1}{2}(\textbf{x} + \textbf{y}) - \frac{1}{2}(\textbf{x} - \textbf{y})  \implies B \subseteq A\).
+                </p>
+            </div>
+            
+            <div id = "linindependence">
+                <h2>LINEAR INDEPENDENCE</h2>
+                
+                <p>
+                    Not all spanning sets are born equal. Some, for example, might have multiple possible coefficient values (i.e. representations) for the same vectors. Ideally, if we want a good span for a vector space, we want it to <i>uniquely</i>
+                    identify every vector in that subspace. To guarantee this uniqueness, we consider the possibility of a vector \(\textbf{v}\) having two different possible linear combinatons of the vector set \(\textrm{span}\{\textbf{a}_1, . . . , \textbf{a}_n\}\).
+                    Then, this would imply \(s_1\textbf{v}_1 + . . . + s_n\textbf{v}_n = t_1\textbf{v}_1 + . . . + t_n\textbf{v}_n \implies (s_1 - t_1)\textbf{v}_1 + . . . + (s_n - t_n)\textbf{v}_n = 0 \implies s_i = t_i, \forall \, 1 \leq i \leq n\) as \(\textbf{v}_i \neq \textbf{0}\), else it would be reundant to include it in
+                    the spanning set. Therefore, a set of vectors \(\{\textbf{a}_1, . . . , \textbf{a}_n\}\) is called <b>linearly independent</b> if and only if \(s_1\textbf{v}_1 + . . . + s_n\textbf{v}_n = 0 \implies s_i = 0, \forall \, 1 \leq i \leq n\). That is, if one's vector coefficient is zero then ALL of the other vectors'
+                    coefficients must also be zero. We call a set of vectors <b>linearly dependent</b> if otherwise (i.e. there is some set of coefficients not all zero to cause the above linear combination to be zero).
+                </p>
+                
+                <p>
+                    Note that any set of vectors containing the zero vector is automatically linearly dependent. This is because we can multiply zero by anything and still get zero. Linear dependence can also be recognized more quickly by checking if any vector
+                    in a set is a linear combination of the other vectors in the set. This leads to the following theorem which provides an equivalent definition for linear independence/dependence:
+                </p>  
+                
+                <div class = "theorem">
+                    <h3 style = "text-align:center;">THEOREM III:</h3>
+                    $$ \textrm{A set of vectors } S = \textrm{span} \{\textbf{v}_1, . . . , \textbf{v}_n\} \textrm{ is linearly independent } $$ 
+                    $$ \iff $$
+                    $$ \textrm{no vector in } S \textrm{ can be written as a non-zero linear combination of the other vectors in } S. $$
+                </div>
+                
+                <p>
+                    This is relatively easy to prove. In the \(\implies\) direction this follows because if a vector could be written as a linear combination of the other vectors, we would have a set of coefficients that cause the span of that vector set
+                    to equal zero, contradicting the definition of set of vectors being linearly independent. In the \(\impliedby\) direction, if \(S\) was linearly dependent then one of the vectors could be rearranged such as to write it as a linear combination
+                    of the other vectors, thus contradicting the premise of the inference (that is, no vector can be written as a linear combination of the others).
+                </p>
+                    
+                <h3>DIMENSION AND BASIS</h3>
+                <p>
+                A <b>basis</b> of a vector space is one in which the vectors 1. span the vector space, and 2. are linearly independent. The interesting thing about basis is that <b>all</b> of them have the exact same size. This follows from a lemma known as the
+                Steinitz exchange lemma, which is stated as follows:
+                </p>
+                
+                <div class = "theorem">
+                    <h3 style = "text-align:center;">LEMMA I:</h3>
+                    $$  U = \{\textbf{v}_1, . . . , \textbf{v}_m\} \textrm{ is a set of } m \textrm{ linearly independent vectors in some vector space } V, \textrm{ and } W = \textrm{span} \{\textbf{w}_1, . . . , \textbf{w}_n\} \textrm{ spans } V \implies m \leq n. $$
+                </div>
+            
+                The proof for the above proceeds as follows: Since each vector in \(U\) is in \(V\) and the entirety of \(V\) is spanned by \(W\), then we have the following:
+                
+                \begin{cases}
+                    \textbf{v}_1 &= t_{1, 1}\textbf{w}_1 \, + \, . . . + \, t_{1,n}\textbf{w}_n\\
+                    &{\vdots} \\
+                    \textbf{v}_m &= t_{m ,1}\textbf{w}_1 \, + \, . . . + \, t_{m,n}\textbf{w}_n\\
+                \end{cases}
+                
+                We can of course write the above (rather complicated) system in matrix form:
+                
+                \[
+                    \begin{bmatrix}
+                        v_1 \\
+                        \vdots \\
+                        v_m \\
+                    \end{bmatrix} =
+                    \begin{bmatrix}
+                        t_{1,1} & \dots & t_{1,n} \\
+                        \vdots & \ddots & \\
+                        t_{m,1} & \dots      & t_{m,n}
+                    \end{bmatrix}
+                    \begin{bmatrix}
+                        w_1 \\
+                        \vdots \\
+                        w_m \\
+                    \end{bmatrix}
+                \]
+    
+                Now since \(U\) is a linearly independent set of vectors, we can check this by pre-multiplying (multiplying on the left side) both sides of the above equation by some arbitrary row vector
+                \(\textbf{v} = [a_1, \dots, a_m]\). This gives:
+                
+                \[
+                    \begin{bmatrix}
+                        a_1, \dots, a_m
+                    \end{bmatrix}
+                    \begin{bmatrix}
+                        v_1 \\
+                        \vdots \\
+                        v_m \\
+                    \end{bmatrix} =
+                    \begin{pmatrix}
+                        \begin{bmatrix}
+                            a_1, \dots, a_m
+                        \end{bmatrix}
+                        \begin{bmatrix}
+                            t_{1,1} & \dots & t_{1,n} \\
+                            \vdots & \ddots & \\
+                            t_{m,1} & \dots      & t_{m,n}
+                        \end{bmatrix}
+                    \end{pmatrix}
+                    \begin{bmatrix}
+                        w_1 \\
+                        \vdots \\
+                        w_n \\
+                    \end{bmatrix}
+                \]
+    
+                Note that the two matrices in the brackets shown above do form a system but not exactly in the conventional \(A\textbf{x}=\textbf{b}\) form. To rectify this, we can just take the transpose of both sides to give us:
+    
+                \[
+                    \begin{bmatrix}
+                        v_1, \dots, v_m
+                    \end{bmatrix}
+                    \begin{bmatrix}
+                        a_1 \\
+                        \vdots \\
+                        a_m \\
+                    \end{bmatrix} =
+                    \begin{bmatrix}
+                        w_1, \dots, w_n \\
+                    \end{bmatrix}
+                        \begin{pmatrix}
+                        \begin{bmatrix}
+                            t_{1,1} & \dots & t_{m, 1} \\
+                            \vdots & \ddots & \\
+                            t_{1, n} & \dots      & t_{n,m}
+                        \end{bmatrix}
+                        \begin{bmatrix}
+                            a_1 \\
+                            \vdots \\
+                            a_m \\
+                        \end{bmatrix}
+                    \end{pmatrix}
+                \]
+                
+                <p>
+                Now we have our much more familiar \(A\textbf{x}=\textbf{b}\) matrix equation. Now, if \(m > n\) then the system shown above in brackets (specifically a homogeneous system as we
+                are concerned with linear independence) will have an infinite amount of solutions. This is because there are more unknowns than equations, so that when you reduce the matrix consisting of
+                \(t\)-values, there will be less pivots than the total number of variables leading to at least one free variable. Therefore, there is some vector in which not all its entries are zero that satisfy
+                the homogeneous system. This contradicts the notion that \(U\) is linearly independent so we must have that \(m \leq n\).
+                </p>
+                
+                <p>
+                    This theorem is important for proving another important idea about bases: <b>Any basis of a vector space always has the same size.</b> To see why this is true, suppose that there exist two bases
+                    for a vector space \(U\) of the form \(V = \{\textbf{v}_1, . . . , \textbf{v}_n\} \textrm{ and } W = \{\textbf{w}_1, . . . , \textbf{w}_m\}\). Choosing \(V\) as the linearly independent set and \(W\) as the spanning set gives
+                    \(n \leq m\) by Lemma I. Choosing \(W\) as the linearly independent set and \(V\) as the spanning set then gives \(m \leq n\) again by Lemma I, clearly establishing that \(m = n\). We call the size
+                    of the basis of a vector space \(V\) its dimension, denoted by \(\textrm{dim } V\). This matches well with our intuition, as we expect the dimension of \(\mathbb{R}^2\) to be \(2\), which is true as we
+                    know the simplest basis of the vector space \(\mathbb{R}^n\) to be formed by the rows of the \(n \times n\) identity matrix. In fact, \(\textrm{dim } \mathbb{R}^n = n\).
+                </p>
+                
+                Now, we give the following three statements which will be useful for finding bases of vector spaces (and for proving some future statements):<br><br>
+                
+                <div class = "theorem">
+                    <h3 style="text-align: center;">THEOREM IV:</h3>
+                    $$ \textrm{If } U \textrm{ is a subspace of an arbitrary vector space }  V \textrm{, then: } $$
+                    $$ 1. \, U \textrm{ has a basis and dim } U \leq \textrm{dim } V. $$
+                    $$ 2. \, \textrm{Any independent set of } U \textrm{ can be enlarged (by adding vectors from the standard basis) such as to form a basis for } U. $$
+                    $$ 3. \, \textrm{Any spanning set of } U \textrm{ can be shortened by deleting vectors such as to form a basis for } U. $$
+                </div> 
+                
+                <p>
+                    The proof for these three statements are actually quite intuitive. Suppose that, while we're attempting to form a basis for \(U\) we begin with one arbitrary vector \(\textbf{v}\). If this vector does not
+                    span \(U\), then we can add on another vector that is not a multiple of \(\textbf{v}\) which we can call \(\textbf{v}_1\). If this set of vectors \(\{\textbf{v}, \textbf{v}_1\}\) does not span \(U\), then
+                    we can again add on another vector \(\textbf{v}_2\) provided that it is not a linear combination of the other vectors we already have in the current set. This can be repeated as much as necessary, for a
+                    maximum of \(\textrm{dim } V\) times (going beyond the value of \(\textrm{dim } V\) contradicts the fact that the size of all bases of \(V\) should be \(\textrm{dim } V\)), thus
+                    proving Statement 1. The proof for Statement 2. then follows in a similar fashion as for Statement 1. For Statement 3, we can delete any vectors from a spanning set that is a linear combination of the other vectors
+                    until we have that this spanning set is linearly independent. This does not affect the span as a vector that is a linear combination of the other vectors in a spanning set simply 'adds' to the coefficients of the other
+                    vectors when you fully write out the span, or gets 'absorbed' by the other vectors. For example, \(\textbf{v}_2 = \textbf{v}_1 + 3 \textbf{v}_3 \implies t_1\textbf{v}_1 + t_2\textbf{v}_2 + t_3\textbf{v}_3 = t_1\textbf{v}_1 + t_2(\textbf{v}_1 + 3 \textbf{v}_3) + t_3\textbf{v}_3 =
+                    (t_1 + t_2)\textbf{v}_1 + (t_3 + 3t_2)\textbf{v}_3\).
+                </p>
+                
+                We now introduce a work-saving result that can be used to instantly identify whether or not a spanning set or linearly independent set of vectors form a basis for a vector space given that we already know its dimension:
+                
+                <div class="theorem">
+                    <h3 style="text-align: center;">THEOREM V:</h3>
+                    $$ \textrm{Let } U \textrm{ be a subspace of a vector space } V \textrm{ where dim } U = n \textrm{ and let } S = \{\textbf{s}_1, . . . , \textbf{s}_n\}. \textrm{ Then, } S \textrm{ is independent} \iff S \textrm{ spans } U $$
+                </div> 
+                
+                <p>
+                    So as long as we can prove a set of vectors satisfies one of the conditions of a basis for a vector space, then it is guaranteed to satisfy the other and so is automatically a basis. The proof of this is that in the \(\implies\)
+                    direction, if \(S\) does not already span \(U\) then we can just add more vectors until it does span \(U\), as per Statement 2 of Theorem IV. In the \(\impliedby\) direction, if we have a set of vectors that do span \(U\) but are
+                    not linearly independent, then we can reduce its size as per Statement 3 of Theorem IV. In both directions, we end up with a basis for \(U\) whose dimension is not equal to \(n\), a contradiction.
+                </p>
+                
+                We now close this section with a theorem connecting subspaces and their dimensions:
+                <div class="theorem">
+                    <h3 style="text-align: center;">THEOREM VI:</h3>
+                    $$ \textrm{If } U \textrm{ and } W, \textrm{ where } U \subseteq W \textrm { are subspaces of a vector space } V \textrm{ then:} $$
+                    $$ \textrm{dim } U \leq \textrm{dim } W. $$
+                    $$ U = W \iff \textrm{ dim } U = \textrm{ dim } W. $$
+                </div>
+                <p>
+                    For Statement 1, if \(\textrm{dim } U > \textrm{dim } W\) then we'll have two bases for \(W\) of different sizes (which are the basis of \(U\) and \(W\)), a contradiction. For Statement 2, the \(\implies\) direction trivially follows
+                    as any vector in \(U\) will also be found in \(W\) and vice-versa, so a basis for \(U\) will also be a basis for \(W\) and vice-versa. In the \(\impliedby\) direction, a linearly independent set \(S\) of size \(k = \textrm{dim }U\) will
+                    also be in \(W\), which has \(\textrm{dim } W = k\). Therefore, this linearly independent set also spans \(W\) by Theorem V, so that we have \(W = \textrm{span } S = U\).
+                </p>
+            </div>
+            
+            <div id="rank">
+                <h2>MATRIX RANK</h2>
+                
+                <p>
+                    You might have heard of this mysterious concept known as the 'rank' of a matrix, and that its supposedly the number of non-zero rows in the reduced-row echelon form of a matrix. In this section, we attempt to formalize the idea of a matrix's
+                    rank more and introduce a fundamental theorem known as the Rank-Nullity Theorem. First, we introduce two new subspaces: the column space and row space of an arbitrary \(m \times n\) matrix \(A\). These two subspaces are defined as the set of
+                    all vectors formed by the span of a matrix's columns and rows respectively, denoted as \(\textrm{col } A\) and \(\textrm{row } A\) respectively as well. We provide a theorem here which will help us to find bases for these two subspaces:
+                </p>
+                
+                <div class="theorem">
+                    <h3 style="text-align: center;">THEOREM VII:</h3>
+                    $$ \textrm{ Let } A \textrm{ be an } m \times n \textrm{ matrix. Then:} $$
+                    $$ 1. \textrm{A basis for row } A \textrm{ is given by the rows of } A \textrm { corresponding to the pivot rows in the reduced-row echelon form of } A. $$
+                    $$ 2. \textrm{A basis for col } A \textrm{ is given by the columns of } A \textrm{ corresponding to the pivot columns in the reduced-row echelon form of } A. $$
+                </div>   
+                
+                <p>
+                To see why this is true, it is important to note that row operations do not change the row space of a matrix. For swapping, this is trivial; for multiplying a row by a scalar constant, we are only changing the value of its coefficient; for adding
+                a scalar multiple of one row to another, then this new row formed will simply get 'absorbed' into the other rows' coefficients similar to the proof for Theorem IV. Therefore, in the reduced-row echelon form of a matrix, the rows will either be consisting of all zeros
+                or they will be a pivot row (i.e. having its first entry be 1). Any zero rows implies that these corresponding rows are linear combinations of the other rows, and so can be deleted such as to make the set linearly independent without affecting its span.
+                Therefore, we are only left with the rows corresponding to the pivot rows.
+                </p>
+                
+                <p>
+                Note that for the column space, if we denote the reduced-row echelon form of \(A\) as \(R\), then \(\textrm{null } A = \textrm{null } R\). This should be intuitive since we technically use Gaussian elimination on a matrix to find a basis for its null space (the values of the variables) whenever we are solving
+                a system of equations. In the reduced-row echelon form of a matrix, its columns will either be pivot columns (corresponding to columns of the \(m \times m\) identity matrix) or otherwise be a non-zero column. In the latter case, suppose that the last non-zero
+                entry of this column occurs in the \(j\)th position. Then, due to the definition of the reduced-row echelon form of a matrix it will have the first \(1\) to \(j\)th columns of the \(m \times m \) identity matrix to the left of it, so it can trivially be seen that
+                any of these non-pivot columns can be written as a linear combination of all of the pivot columns to the left of it. Since \(\textrm{null } A = \textrm{null } R\) this means any relation among the columns of \(R\) (such as a non-pivot column being a linear combination of
+                the pivot columns to the left of it)also has the same corresponding relation for the columns of \(A\). Therefore, any non-pivot column can safely be deleted, hence proving Statement 2 of Theorem VII.
+                </p>
+                
+                <p>
+                Now, given the rather primitive definition of the rank of a matrix introduced in the beginning of this section, then we can easily see that \(\textrm{rank } A = \textrm{dim}(\textrm{row } A) \). However, it is actually the case that \(\textrm{rank } A = \textrm{dim}(\textrm{row } A) = \textrm{dim}(\textrm{col } A)\),
+                something which is not necessarily obvious at first. But this can be seen as following immediately from Theorem VII, as when we row-reduce a matrix the number of pivot columns will always be equal to the number of pivot rows. Hence, \(\textrm{rank } A = \textrm{dim}(\textrm{row } A) = \textrm{dim}(\textrm{col } A)\).
+                As a result, the maximum value of the rank of an \(m \times n\) matrix will be equal to the either its rows or columns, depending on which is smaller (i.e. \(\textrm{rank } A \leq \textrm{min}\{m, n\}\)). Note that \(\textrm{rank } A = \textrm{rank } A^T\) because \(\textrm{row } A = \textrm{col } A^T \implies \textrm{dim}(\textrm{row } A) = \textrm{dim}(\textrm{col } A^T) \) by Statement 2 of Theorem VI.
+                </p>
+                
+                An interesting relation between the dimension of the null space of a matrix (referred to as its nullity), its rank, and the number of columns is encapsulated in the Rank-Nullity Theorem:
+                
+                <div class="theorem">
+                    <h3 style = "text-align: center;">THEOREM VIII:</h3>
+                    $$ \textrm{Let } A \textrm{ be an } m \times n \textrm{ matrix. Then, nullity } A + \textrm{ rank } A = n. $$
+                </div>
+                
+                <p>
+                This seems like a completely unexpected theorem, but it is nonetheless quite useful. An intuitive explanation for this can be given from the method of Gaussian elimination: when solving a homogeneous system whose coefficient matrix is given by \(A\), the number of pivot variables is given by \(r = \textrm{rank } A\) so that the number of free-variables is then given by
+                \(n - r\), which is equal to the nullity of \(A\). The Rank-Nullity Theorem then trivially follows. To prove this more formally, suppose that we already have a basis for \(\textrm{null } A\) which is \(\{\textbf{x}_1, . . ., \textbf{x}_k\}\). We can then extend this to a basis of \(\mathbb{R}^n\) by adding vectors, giving us the set \(\{\textbf{x}_1, . . ., \textbf{x}_k, \textbf{x}_{k+1}, . . . \textbf{x}_n\}\).
+                We actually only need to show that the set \(\{A\textbf{x}_{k+1}, . . ., A\textbf{x}_n\}\) forms a basis for \(\textrm{im } A\). Then, this will necessarily show that \(n - k = \textrm{rank } A\) from which the Rank-Nullity Theorem trivially follows. To prove this, any arbitrary vector \(\textbf{x}\) in \(\mathbb{R}^n\) can be represented as \(\textbf{x} = t_1\textbf{x}_1 + . . . + t_k\textbf{x}_k + t_{k+1}\textbf{x}_{k+1} + . . . + t_n\textbf{x}_n\).
+                Pre-multiplying both sides by \(A\) gives \(A\textbf{x} = At_{k+1}\textbf{x}_{k+1} + . . . At_n\textbf{x}_n\), where the first \(k\) vectors have vanished because they form a basis for \(\textrm{null } A\). Hence, we have established spanning. Now, for independence, suppose that \(a_{k+1}A\textbf{x}_{k+1} + . . . + a_nA\textbf{x}_n = \textbf{0}\) so that
+                \(a_{k+1}\textbf{x}_{k+1} + . . . + a_n\textbf{x}_n\) is in \(\textrm{null } A\). Then, \(a_{k+1}\textbf{x}_{k+1} + . . . + a_n\textbf{x}_n = a_1\textbf{x}_1 + . . . + a_k\textbf{x}_k\). But \(a_i = 0 \, \forall \, 1 \leq i \leq n\) so we have established independence. Hence, \(\{\textbf{x}_{k+1}, . . . \textbf{x}_n\}\) forms a basis for \(\textrm{im } A\) and the Rank-Nullity Theorem follows.
+                </p>
+            </div>
+            
+            <div id = "calculator">
+                <h2>CALCULATOR</h2>
+                <script>
+                    let rows;
+                    let columns;
+                    let pivot;
+                    let pivotrow;
+                    let pivotcolumn;
+                    function main()
+                    {
+                        pivotrow = 0;
+                        pivotcolumn = 0;
+                        // Get dimensions of matrix
+                        rows = window.prompt("Enter the number of rows in the matrix: ");
+                        if (rows === null) {
+                            return
+                        }
+                        while (isNaN(rows) || rows === "") {
+                            rows = window.prompt("Enter the number of rows in the matrix: ");
+                        }
+                        rows = parseInt(rows)
+                        
+                        columns = window.prompt("Enter the number of columns in the matrix: ");
+                        if (columns === null) {
+                            return
+                        }
+                        while (isNaN(columns) || columns === "") {
+                            columns = window.prompt("Enter the number of columns in the matrix: ");
+                        }
+                        columns = parseInt(columns)
+                        
+                        // Initialize matrix
+                        let matrix = new Array(rows)
+                        let temp = new Array(rows)
+    
+                        for (let i = 0; i < rows; i++)
+                        {
+                            matrix[i] = new Array(columns)
+                            temp[i] = new Array(columns)
+                        }
+    
+                        // Ask user to enter matrix values
+                        for (let i = 0; i < rows; i++)
+                        {
+                            for (let j = 0; j < columns; j++)
+                            {
+                                temp[i][j] = window.prompt(`Enter the value for the value in the [${i+1}][${j+1}] position `);
+                                if (temp[i][j] === null) {
+                                    return
+                                }
+                                while (isNaN(temp[i][j]) || temp[i][j] === "") {
+                                    temp[i][j] = parseInt(window.prompt(`Enter the value for the value in the [${i+1}][${j+1}] position `));
+                                }
+                                temp[i][j] = parseInt(temp[i][j])
+                                matrix[i][j] = temp[i][j]
+                            }
+                        }
+    
+                        // Initialize pivot variable
+                        pivot = matrix[0][0];
+    
+                        // Main RREF algorithm
+                        for (let i = 0; i < rows; i++)
+                        {
+                            if (pivot !== 0)
+                            {
+                                // Scales all values in row of pivot so that the pivot in that row is 1
+                                for (let j = 0; j < columns; j++)
+                                {
+                                    matrix[pivotrow][j] = 1 / pivot * matrix[pivotrow][j];
+                                }
+                                pivot = matrix[pivotrow][pivotcolumn];
+                                // Proceeds to eliminate all values in same column as pivot variable
+                                for (let j = 0; j < rows; j++)
+                                {
+                                    if (matrix[j][pivotcolumn] !== 0 && j !== pivotrow)
+                                    {
+                                        rowadd(matrix, j, pivotrow, -matrix[j][pivotcolumn]);
+                                    }
+                                }
+                                // Updates pivot variable to next in main diagonal
+                                pivotrow++;
+                                pivotcolumn++;
+                                // Instantly ends for loop if pivot variable tries to move to diagonal that doesn't exist
+                                if (pivotrow > rows - 1 || pivotcolumn > columns - 1)
+                                {
+                                    break;
+                                }
+                                pivot = matrix[pivotrow][pivotcolumn];
+                            }
+                            else if (pivotincolumn(matrix, pivotcolumn) !== -1)
+                            {
+                                swap(matrix, pivotincolumn(matrix, pivotcolumn), pivotrow);
+                                // Redeclares pivot variable after swapping since it is in the same position as the original
+                                pivot = matrix[pivotrow][pivotcolumn];
+                                // To soft reset counter after pivot
+                                i--;
+                            }
+                            else if (pivotinrow(matrix) !== -1)
+                            {
+                                pivot = matrix[pivotrow][pivotcolumn];
+                            }
+                            // If could not find pivot in column or in any entry in same row, then
+                            // we are either at the last row or everything else below current row is just zeroes
+                            // So either find the pivot in this row (if possible), but if not then the algorithm is done.
+                            else if (rowcontainspivot(matrix) !== -1)
+                            {
+                                i--;
+                                continue;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+    
+                        let ogmatrix = '$$ \\begin{bmatrix}'
+                        // Display final matrix values
+                        for (let i = 0; i < rows; i++)
+                        {
+                            if (i != 0) {
+                                ogmatrix += '\\'
+                            }
+                            for (let j = 0; j < columns; j++)
+                            {
+                                let m = temp[i][j].toString()
+                                ogmatrix += m
+                                if (j != columns - 1) {
+                                    ogmatrix += ' &'
+                                }
+                            }
+                            ogmatrix += '\\'
+                        }
+    
+                        let rrefmatrix = '$$ \\begin{bmatrix}'
+                        // Display final matrix values
+                        for (let i = 0; i < rows; i++)
+                        {
+                            if (i != 0) {
+                                rrefmatrix += '\\'
+                            }
+                            for (let j = 0; j < columns; j++)
+                            {
+                                let m = matrix[i][j].toString()
+                                rrefmatrix += m
+                                if (j != columns - 1) {
+                                    rrefmatrix += ' &'
+                                }
+                            }
+                            rrefmatrix += '\\'
+                        }
+    
+                        const columnspace = [];
+                        let index = 0;
+    
+                        // Print out column space
+                        for (let j = 0; j < columns; j++) {
+                            let counter = 0;
+                            for (let i = 0; i < index; i++) {
+                                if (Math.abs(matrix[i][j]) === 0) {
+                                    counter++
+                                }
+                            }
+                            if (index >= rows) {
+                                break;
+                            }
+                            if (matrix[index][j] === 1 && counter === index) {
+                                columnspace.push(j)
+                                index++;
+                            }
+                        }
+    
+                        let colspace = '$$ \\left\\{'
+                        for (let i = 0; i < columnspace.length; i++) {
+                            let vector = '\\begin{pmatrix}'
+                            for (let j = 0; j < rows; j++)
+                            {
+                                if (j != 0) {
+                                    vector += '\\'
+                                }
+                                let m = temp[j][i].toString()
+                                vector += m
+                                vector += '\\'
+                            }
+                            vector += ' \\end{pmatrix}'
+                            colspace += vector
+                            if (i != columnspace.length - 1) {
+                               colspace += ', '
+                            }
+    
+                        }
+    
+                        const rowspace = [];
+    
+                        for (let i = 0; i < rows; i++) {
+                            for (let j = 0; j < columns; j++) {
+                                if (Math.abs(matrix[i][j]) !== 0) {
+                                    rowspace.push(i)
+                                    break
+                                }
+                            }
+                        }
+    
+                        let rowspacedisplay = '$$ \\left\\{\\begin{aligned} '
+                        for (let i = 0; i < rowspace.length; i++) {
+                            rowspacedisplay += ' & '
+                            let vector = '\\begin{bmatrix}'
+                            for (let j = 0; j < columns; j++)
+                            {
+                                let m = matrix[i][j].toString()
+                                vector += m
+                                if (j != columns - 1) {
+                                    vector += '&'
+                                }
+                            }
+                            vector += ' \\end{bmatrix}'
+                            rowspacedisplay += vector
+                            if (i != rowspace.length - 1) {
+                               rowspacedisplay += ' \\\\'
+                            }
+    
+                        }
+                        rowspacedisplay += ' \\end{aligned}\\right\\} $$'
+                        colspace += ' \\right\\} $$'
+                        rrefmatrix += ' \\end{bmatrix} $$'
+                        ogmatrix += ' \\end{bmatrix} $$'
+                        document.getElementById('original').innerHTML = ogmatrix
+                        document.getElementById('originalheader').innerHTML = "ORIGINAL MATRIX: "
+                        document.getElementById('rref').innerHTML = rrefmatrix
+                        document.getElementById('rrefheader').innerHTML = "RREF FORM:"
+                        document.getElementById('column').innerHTML = colspace
+                        document.getElementById('columnheader').innerHTML = "COLUMN SPACE BASIS:"
+                        document.getElementById('row').innerHTML = rowspacedisplay
+                        document.getElementById('rowheader').innerHTML = "ROW SPACE BASIS:"
+                        MathJax.typeset()
+                    }
+    
+                    // Adds a scalar multiple of row2 to row1
+                    function rowadd(matrix, row1, row2, scalar)
+                    {
+                        for (let i = 0, n = columns; i < columns; i++)
+                        {
+                            matrix[row1][i] += scalar * matrix[row2][i];
+                            // Tolerance for what is considered zero
+                            if (Math.abs(matrix[row1][i]) < Math.pow(10, -5))
+                            {
+                                matrix[row1][i] = 0;
+                            }
+                        }
+                    }
+    
+                    // Swaps row1 and row2
+                    function swap(matrix, row1, row2)
+                    {
+                        for (let i = 0; i < columns; i++)
+                        {
+                            let temp = matrix[row1][i];
+                            matrix[row1][i] = matrix[row2][i];
+                            matrix[row2][i] = temp;
+                        }
+                    }
+    
+                    // Checks if there is another pivot in the column below the pivot variable. If there is, swaps rows with it; else, returns -1.
+                    function pivotincolumn(matrix, column)
+                    {
+                        for (let a = pivotrow + 1; a < rows; a++)
+                        {
+                            if (matrix[a][column] !== 0)
+                            {
+                                // Returns the row position of the pivot
+                                return a;
+                            }
+                        }
+                        // Returns -1 if no pivot (i.e non-zero value) could be found in the same column
+                        return -1;
+                    }
+    
+                    function pivotinrow(matrix)
+                    {
+                        for (let a = pivotcolumn + 1; a < columns; a++)
+                        {
+                            if (pivotincolumn(matrix, a) !== -1)
+                            {
+                                // Returns column position of the pivot; additionally swaps rows and resets pivot position
+                                swap(matrix, pivotcolumn, pivotincolumn(matrix, a));
+                                pivotcolumn = a;
+                                return a;
+                            }
+                        }
+                        /*
+                        Returns -1 if no pivot could be found for any of the other entries in the same row
+                        as the pivot (hence implying we are either at the last row or there are all zeros below
+                         the current row)
+                        */
+                        return -1;
+                    }
+    
+                    function rowcontainspivot(matrix)
+                    {
+                        for (let k = 0; k < columns; k++)
+                        {
+                            if (matrix[pivotrow][k] !== 0)
+                            {
+                                pivotcolumn = k;
+                                pivot = matrix[pivotrow][k];
+                                return k;
+                            }
+                        }
+                        return -1;
+                    }
+                </script>
+                <p>
+                Stuck on a question about basis? Try using this calculator! Simply type the dimensions of the matrix in question, its entries, and it'll tell you the corresponding bases for its row space and column space.
+                </p>
+                <button onclick = "main()">Click me!</button>
+                <h2 id = "originalheader" style = "text-align:center;"></h2>
+                <h2 id = "original" style = "text-align: center;"></h2>
+                <h2 id = "rrefheader" style="text-align: center;"></h2>
+                <h2 id = "rref"></h2>
+                <h2 id = "rowheader" style = "text-align: center;"></h2>
+                <h2 id = "row"></h2>
+                <h2 id = "columnheader" style = "text-align: center;"></h2>
+                <h2 id = "column"></h2>
+            </div>
+        </main>
+    </body>
+</html>

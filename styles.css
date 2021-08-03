@@ -1,0 +1,42 @@
+h1 {
+    text-align: center
+}
+
+p {
+    text-align: justify; 
+}
+
+nav {
+    text-align: center
+
+}
+
+body {
+    margin-left: 5%;
+    margin-right: 5%;
+    padding: 0;
+}
+
+footer {
+    font-size: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.theorem {
+    overflow-x: auto;
+    margin: auto;
+    border: 1px solid black;
+    text-align: center;
+    padding: 5px;
+}
+
+#footer {
+    text-align: center;
+}
+
+.navbar-nav {
+    text-align: center;
+}

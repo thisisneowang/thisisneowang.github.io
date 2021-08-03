@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+        <link href="styles.css" rel="stylesheet">
+        <script type="text/x-mathjax-config">
+        </script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <title>Vector Spaces</title>
+    </head>
+    <body>
+        <header>
+            <h1>Linear Algebra: Vector Spaces</h1>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-link" href="spaces.html">Vector Spaces</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="basis.html">Basis</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="orthogonalsets.html">Orthogonal Sets</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="eigenmatrices.html">Eigenmatrices</a>
+                  </li>
+                </ul>
+            </div>
+            </nav>
+        </header>
+        <main>
+            <h2>INTRO TO VECTOR SPACES: </h2>
+            <p>Let's first define what is actually meant by a vector space. The idea is that it's a collection of vectors in which two operations, vector addition 
+            \(\textbf{v} + \textbf{w}\) and scalar multiplication \(a\mathbf{v}\), are defined and also have their familiar properties of associativity and 
+            commutativity in a vector space \(\textbf{U}\): </p>
+            
+            <h5><b>VECTOR ADDITION</b></h5>
+            <p>For all vectors \(\textbf{v}, \textbf{w}, \textbf{u}\) in \(\textbf{U}\) we have 
+                <ol>
+                    <li>The sum \(\textbf{v} + \textbf{w} \in \textbf{U}\) (Closure under vector addition)</li>
+                    <li>\(\textbf{v}\) + \(\textbf{w}\) = \(\textbf{w}\) + \(\textbf{v}\) (Commutative law)</li>
+                    <li>\(\textbf{v} + (\textbf{w} + \textbf{x}) = (\textbf{v} + \textbf{w}) + \textbf{x}\) (Associative law) </li>
+                    <li>\(\textbf{0} + \textbf{v} = \textbf{v}\) (Additive element, the zero vector \(\textbf{0}\))</li>
+                    <li>\(\textbf{v} + (-\textbf{v}) = 0\) (Additive inverse, the negative vector \(-\textbf{v}\))</li>
+                </ol>
+            </p>
+            
+            <p>
+                <h5><b>SCALAR MULTIPLICATION</b></h5>
+                For all vectors \(\textbf{v}\), \(\textbf{w}\) in \(\textbf{U}\) and scalar \(a, b \in \mathbb{R}\) we have 
+                <ol>
+                    <li>\(a \textbf{v} \in \textbf{U}\) (Closure under scalar multiplication) </li>
+                    <li>\(a \cdot (\textbf{v} + \textbf{w}) = a \cdot \textbf{v} + a \cdot \textbf{w} \) and \((a+b) \cdot \textbf{v}
+                     = a \cdot \textbf{v} + b \cdot \textbf{v}\) (Distribute over scalar multiplication) </li>
+                    <li>\(a \cdot (b \cdot \textbf{v}) = (a \cdot b) \cdot \textbf{v}\) (Associative law) </li>
+                    <li>\(\textbf{v} \cdot 1 = \textbf{v}\) (Multiplicative inverse) </li>
+                </ol>
+                Due to the property of real numbers, we have that \(\mathbb{R}^n\) is a vector space.
+            </p>
+            
+            <p>
+                <h2>VECTOR SUBSPACES</h2>
+                Now onto a related topic: vector subspaces. These are essentially 'smaller parts' of a larger vector space in that any vector 
+                \(\textbf{v}\) that is in a subspace \(W\) will also be in the actual vector space \(U\). Therefore, we can state that \(W \subseteq U \). 
+                Following this idea, we define a subspace \(W\) as any subset of a vector space \(U\) which satisfies the following key properties:
+                <ol>
+                    <li>\(W\) contains the zero vector \(\mathbf{0}\)</li>
+                    <li>Any two vectors \(\textbf{v}\) and \(\textbf{w}\) in \(W\) will also have their sum \(\textbf{v} + \textbf{w}\) in \(W\). (Closure under vector addition)</li>
+                    <li>If the vector \(\textbf{v}\) is in \(W\) then any scalar multiple, \((a \textbf{v}, a \in \mathbb{R})\) of that vector will also be in \(W\)</li>
+                </ol>
+                An immediate consequence of the above defintion of a vector subspace (specifically points 2. and 3.) is that any linear combination of vectors \(\{v_1, v_2, . . ., v_n\}\) in \(W\) will
+                also be in \(W\). Hence, we have the following trivial, but important theorem:
+            </p>
+            
+            <div class = "theorem">
+                <h3 style="text-align: center;">THEOREM I:</h3>
+                $$ \textrm{For any set of vectors } \{\textbf{v}_1, \textbf{v}_2, . . ., \textbf{v}_n\} \textrm{ in a vector space, we have that any linear combination of these vectors } a_1\textbf{v}_1 + a_2\textbf{v}_2 + . . . + a_n\textbf{v}_n
+                \textrm{ is also in} \mathit{W}. $$
+            </div>
+            
+            <p>Let us apply our working knowledge of vector spaces and subspaces to real examples of vector sets: </p>
+            
+            <h3>EXAMPLES</h3>
+            <ul>
+                <li>
+                Define the first quadrant of \(\mathbb{R}^2\) as \(\{(x, y ) \, | \, x, y \geq 0\}\). We note that this is not a subspace of the vector space \(\mathbb{R}^2\) 
+                since scalar multiplication of either the \(x\) or \(y\) leads to a negative coordinate that is not in the first quadrant. 
+                </li>
+                <li>
+                    Define \(\textrm{null } A\) of an \(m \times n\) matrix \(A\) as the set of all vectors \(\textbf{x}\) in \(\mathbb{R}^n\) such that \(A\textbf{x} = \textbf{0}\).
+                    This is a subspace of \(\mathbb{R}^n\) because the zero vector is trivially in this vector set. Additionally, subspace statements 2. and 3. follow from
+                    the distributive and associative properties of matrix multiplication respectively.
+                </li>
+                <li>
+                    Define \(\textrm{im } A\) of an \(m \times n\) matrix \(A\) as the set of all vectors \(\textbf{y}\) in \(\mathbb{R}^m\) such that \(\textbf{y} = A\textbf{x}\)
+                    for some vector \(\textbf{x}\). (In other words, the range of a matrix \(A\).) This is also a subspace of \(\mathbb{R}^m\) as the zero vector is  
+                    trivially in it; and statements 2. and 3. regarding the definition of vector subspaces once again follow from the distributive and associative properties of matrix multiplication. That is, \(\textbf{y}_1 = A\textbf{x}_1,
+                    \textbf{y}_2 = A\textbf{x}_2 \implies (\textbf{y}_1 + \textbf{y}_2) = A(\textbf{x}_1 + \textbf{x}_2)\) and \(\textbf{y} = A\textbf{x} \implies a\textbf{y} = aA\textbf{x} = A(a\textbf{x})\).<br>
+                    <b>REMARK: </b> This and the above example apply to linear transformations \(\textrm{T: } \mathbb{R}^m \rightarrow \mathbb{R}^n\) wherein the 
+                    equivalent of \(\textrm{null } A\) is simply \(\textrm{ker T}\) and \(\textrm{im } A\) is equivalent of  \(\textrm{range T}\) so that we can establish
+                    that \(\textrm{ker T}\) is a subspace of the domain of \(\textrm{T} = \mathbb{R}^m\) and \(\textrm{range T}\) is a subspace of the codomain of \(\textrm{T}
+                    = \mathbb{R}^n\).
+                </li>
+                <li>
+                    Any line or plane passing through the origin is also a subspace of \(\mathbb{R}^3\). In the case of lines, adding any two points on a line gives another point
+                    on the line as they are all parallel to each other: \(\textbf{y} = t\textbf{x} \implies \textbf{y}_1 + \textbf{y}_2 = t(\textbf{x}_1 + \textbf{x}_2)\) and similarly
+                    for scalar multiplication. In the case of a plane, we can see that any point on a plane can be written as a linear combination of two vectors that are already in it as seen in the image  below.
+                    Then all axioms of a vector subspace trivially follow from the associative and distributive properties of vector algebra. <img src = "plane.jpg" align = "right"> 
+                </li>
+            </ul>
+        </main>
+    </body>
+</html>

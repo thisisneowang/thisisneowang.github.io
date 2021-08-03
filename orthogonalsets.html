@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+        <link href="styles.css" rel="stylesheet">
+         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <title>Orthogonal Sets</title>
+    </head>
+    <body>
+        <header>
+            <h1>Linear Algebra: Vector Spaces</h1>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="spaces.html">Vector Spaces</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="basis.html">Basis</a>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-link" href="orthogonalsets.html">Orthogonal Sets</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="eigenmatrices.html">Eigenmatrices</a>
+                  </li>
+                </ul>
+            </div>
+            </nav>
+        </header>
+        
+        <div id = "orthogonality">
+            <h2>ORTHOGONALITY</h2>
+            <p>It's a well known fact that two vectors,  \(\textbf{x}\) and \(\textbf{y}\) are orthogonal \(\iff \textbf{x} \cdot \textbf{y} = 0\). While this does
+            have an intuitive geometric meaning in \(\mathbb{R}^2\) and \(\mathbb{R}^3\), this fact can nonetheless be extended to any \(\mathbb{R}^n\). Using this, we 
+            can define a set of vectors \(\{\textbf{x}_1, . . . \textbf{x}_n\}\) as orthogonal \(\iff \textbf{x}_i \cdot \textbf{y}_j = 0, i \neq j\ \textrm{ and } \textbf{x}_i \neq \textbf{0}\). 
+            (None of the vectors can be zero or else they will be redundant when we later consider orthogonal sets as bases for vector spaces.) We can further 
+            classify any orthogonal set as orthonormal if and only if the modulus of each vector is 1 (i.e. their length is 1). It is not hard to verify that if we have 
+            an orthogonal set \(\{\textbf{x}_1, . . . \textbf{x}_n\}\) in the first place, then \(\{a_1\textbf{x}_1, . . . a_n\textbf{x}_n\}, a \in \mathbb{R} \) is also 
+            orthogonal (since the dot product is associative). This is what allows us to define the concept of an orthogonal set in the first place. In fact, if you have 
+            an orthogonal set, then you can obtain the corresponding orthonormal set by multiplying each vector in the set by the reciprocal of its set. In other words, an
+            orthonormal set for \(\{\textbf{x}_1, . . . \textbf{x}_n\}\) is given by \(\{\frac{1}{\lvert \lvert \textbf{x}_1 \rvert \rvert}\textbf{x}_1, . . . \frac{1}{\lvert 
+            \lvert \textbf{x}_n \rvert \rvert} \textbf{x}_n\}\).</p>
+        </div>
+        
+        <div id = "orthogonalbases">
+            <h2>ORTHOGONAL BASES</h2>
+            
+            <p>
+                Note that if the two-vector set \(\{\textbf{v}, \textbf{w}\}\) is orthogonal, then the Pythagorean theorem applies: \({\lvert \lvert \textbf{v} + \textbf{w} \rvert 
+                \rvert}^2 = {\lvert \lvert \textbf{v} \rvert \rvert}^2 + {\lvert \lvert \textbf{w} \rvert \rvert}^2\). This can be extended to any set of orthogonal vectors 
+               \(\{\textbf{x}_1, . . . \textbf{x}_n\}\). This is because \({\lvert \lvert \textbf{x}_1 + . . . + \textbf{x}_n \rvert \rvert}^2 = (\textbf{x}_1 + . . . + \textbf{x}_n) \cdot
+               (\textbf{x}_1 + . . . + \textbf{x}_n) = {\lvert \lvert \textbf{x}_1 \rvert \rvert}^2 + . . . + {\lvert \lvert \textbf{x}_n \rvert \rvert}^2 + \sum\limits_{i \neq j}^n \textbf{x}_i \cdot 
+               \textbf{y}_j = {\lvert \lvert \textbf{x}_1 \rvert \rvert}^2 + . . . + {\lvert \lvert \textbf{x}_n \rvert \rvert}^2 \), where the summation is zero because the vectors are in an
+               orthogonal set.
+            </p>
+            
+            The following theorem allows us to use orthogonal sets as a basis for vector spaces:
+    
+            <div class = "theorem">
+                <h3 style = "text-align: center;">THEOREM IX: </h3>
+                $$ \textrm{ Any orthogonal set of vectors in a vector space is linearly independent } $$
+                The proof is as follows: If \(t_1\textbf{x}_1 + . . . t_n\textbf{x}_n = \textbf{0}\) then we have that \(0 = \textbf{x}_i \cdot \textbf{0} = \textbf{x}_i \cdot 
+                (t_1\textbf{x}_1 + . . . + t_n\textbf{x}_n) = t_i{\lvert \lvert \textbf{x}_n \rvert \rvert}^2\). Now, since \(\textbf{x} \neq 0\) then we have that \(t_i = 0\)
+                so any orthogonal set of vectors is also linearly independent.
+            </div>
+        
+            <p> One might wonder why we would even need to consider orthogonal sets as bases in the first place, as they just seem to make things unnecessarily complicated if every
+            vector in the set must be pairwise orthogonal. The reason why is that orthogonal bases have explicit values for the coefficients as in the following theorem: 
+            </p>
+            
+            <div class = "theorem">
+                <h3 style = "text-align: center;">THEOREM X:</h3>
+                $$ \textrm{Let } \{\textbf{x}_1, . . ., \textbf{x}_n\} \textrm{ be a basis for some vector space } V. \textrm{For any vector } \textbf{x} \textrm{ in } V, \textrm{ we have that}: $$
+                $$ \textbf{x} = \left( \frac{\textbf{x} \cdot \textbf{x}_1}{{\lvert \lvert \textbf{x}_1 \rvert \rvert}^2} \right)\textbf{x}_1 + . . . + \left(\frac{\textbf{x} \cdot \textbf{x}_n}{{\lvert \lvert \textbf{x}_n \rvert \rvert}^2}\right)\textbf{x}_n$$
+                This is because since \(\{\textbf{x}_1, . . ., \textbf{x}_n\}\) is a basis for \(V\) and \(\textbf{x}\) is in \(V\) then \(\textbf{x} = t_1\textbf{x}_1 + . . . + t_n\textbf{x}_n\). Taking the dot product
+                of both sides by \(\textbf{x}_i\) gives \(\textbf{x} \cdot \textbf{x}_i = t_i {\lvert \lvert \textbf{x}_i \rvert \rvert}^2 \implies \frac{\textbf{x} \cdot \textbf{x}_i}{{\lvert \lvert \textbf{x}_i \rvert \rvert}^2} = t_i.\)
+            </div>        
+        </div>
+        
+        <div id ="gramschmidt">
+            <h2>THE GRAM-SCHMIDT PROCESS</h2>
+            
+            <p>
+            The above theorem is primarily what gives orthogonal bases an advantage over any other type of bases. In that case, we desire some way to find an orthogonal basis given any basis of a vector space. To do this, we can use the
+            following lemma:
+            </p>
+            
+            <div class = "theorem">
+                <h3 style = "text-align: center;">LEMMA II</h3>
+                <p>
+                $$ \textrm{Let } \{\textbf{x}_1, . . ., \textbf{x}_n\} \textrm{ be a basis for some vector space } V. \textrm{For any vector } \textbf{x} \textrm{ in } V, \textrm{ we have that}: $$
+                $$ \textbf{x}_{n+1} = \textbf{x} - \left( \frac{\textbf{x} \cdot \textbf{x}_1}{{\lvert \lvert \textbf{x}_1 \rvert \rvert}^2} \right)\textbf{x}_1 - . . . - \left( \frac{\textbf{x} \cdot \textbf{x}_n}{{\lvert \lvert \textbf{x}_n \rvert \rvert}^2} \right)\textbf{x}_n.$$
+                $$ \textrm{satisfies } \textbf{x}_{n+1} \cdot \textbf{x}_i = 0, 1 \leq i \leq n. \textrm{Additionally, if } \textbf{x} \textrm{ is not in span}\{\textbf{x}_1, . . ., \textbf{x}_n\} \textrm{ then we have that } \{\textbf{x}_1, . . ., \textbf{x}_n, \textbf{x}_{n+1}\} \textrm{is an
+                orthogonal set.}$$
+                </p>
+            </div>
+            
+            <p>
+                You can check this by taking the dot product of both sides for some \(\textbf{x}_i\), which gives \(\textbf{x}_{n+1} \cdot \textbf{x}_i = \textbf{x} \cdot \textbf{x}_i- \left( \frac{\textbf{x} \cdot \textbf{x}_1}{{\lvert \lvert \textbf{x}_1 \rvert \rvert}^2} \right) {\lvert \lvert \textbf{x}_1 \rvert \rvert}^2  = \textbf{x}_{n+1} \cdot \textbf{x}_{i} - \textbf{x}_{n+1} \cdot \textbf{x}_{i} = 0. \)
+                The second condition, \(\textbf{x} \not\in \textrm{span}\{\textbf{x}_1, . . ., \textbf{x}_n\}\) guarantees that \(\textbf{x}_{n+1} \neq \textbf{0}\). 
+            </p>
+            
+            <p>
+                Although this expression may seem rather arbitrary, it actually provides us with a method for finding an orthogonal bases of any vector space. To get an idea for this, suppose we have a basis \(\{\textbf{x}_1, . . ., \textbf{x}_n\}\). We can start with the single vector set
+                \(\{\textbf{O}_1\} = \{\textbf{x}_1\}\) and then use the above theorem to find add another orthogonal member to this set: \(\textbf{O}_2 = \textbf{x}_2 - \frac{\textbf{x}_2 \cdot \textbf{O}_1}{{\lvert \lvert \textbf{O}_1 \rvert \rvert}^2} \textbf{O}_1\) 
+                giving us a new orthogonal set \(\{\textbf{O}_1, \textbf{O}_2\}\). Continuing in this manner repeatedly (until we have a basis of whose size is equal to the dimension of the vector space of concern) will thus give us an orthogonal basis in a procedure known as the <b>Gram-Schmidt Process.</b> This shows that we can find an orthogonal basis for any vector space given enough time and computational power.
+            </p>
+        </div>
+        
+        <div id="calculator">
+            <h2>GRAM-SCHMIDT CALCULATOR</h2>
+            <p>
+                If you've ever tried finding an orthogonal basis for a vector space yourself, you might realize that the Gram-Schmidt Process gets tedious <i>very quickly</i>. For that reason, I have a developed a computer program which will give you an orthogonal basis for any vector set instantly:
+            </p>
+            <script>
+                function main() {
+                    let counter = 1;
+                    let vectornum = parseInt(window.prompt("Enter the number of vectors"));
+                    let vectorsize = parseInt(window.prompt("Enter the number of rows in each vector"));
+                    let vectors = new Array(vectornum);
+                    for (let i = 0; i < vectornum; i++) {
+                        vectors[i] = new Array(vectorsize);
+                    }
+                    
+                    for (let i = 0; i < vectornum; i++) {
+                        for (let j = 0; j < vectorsize; j++) {
+                            if (i <= 2) {
+                                switch (i) {
+                                    case 0:
+                                        vectors[i][j] = window.prompt(`Enter the value of entry ${j + 1} of the 1st vector: `);
+                                        break;
+                                    case 1:
+                                        vectors[i][j] = window.prompt(`Enter the value of entry ${j + 1} of the 2nd vector: `);
+                                        break;
+                                    case 2:
+                                        vectors[i][j] = window.prompt(`Enter the value of entry ${j + 1} of the 3rd vector: `);
+                                        break;
+                                }
+                            } else {
+                                vectors[i][j] = window.prompt(`Enter the value for value ${j + 1} of the ${i+1}th vector: `);
+                            }
+                            if (vectors[i][j] === null) {
+                                return;
+                            }
+                            vectors[i][j] = parseInt(vectors[i][j])
+                        }
+                    }
+                    
+                    let vectorsum = new Array(vectorsize);
+                    
+                    let orthbasis = new Array(vectornum);
+                    orthbasis[0] = vectors[0];
+                    for (let i = 1; i < vectornum; i++) {
+                        for (let i = 0; i < vectorsize; i++) {
+                            vectorsum[i] = 0;
+                        }
+                        
+                        orthbasis[i] = sum(vectors[i], sumvectors(vectors[i]), -1);
+                    }
+                    
+                    // LaTex output for original basis
+                    let ogoutput = '$$ \\left\\{'
+                    for (let i = 0; i < vectornum; i++) {
+                        let vector = '\\begin{pmatrix}'
+                        for (let j = 0; j < vectorsize; j++)
+                        {
+                            if (j != 0) {
+                                vector += '\\'
+                            }
+                            let m = vectors[i][j].toString()
+                            vector += m + '\\'
+                        }
+                        vector += ' \\end{pmatrix}'
+                        ogoutput += vector
+                        if (i != vectornum - 1) {
+                           ogoutput += ', '
+                        }
+                    }
+                    
+                    // LaTeX output for orthogonal basis
+                    let output = '$$ \\left\\{'
+                    for (let i = 0; i < vectornum; i++) {
+                        let vector = '\\begin{pmatrix}'
+                        for (let j = 0; j < vectorsize; j++)
+                        {
+                            if (j != 0) {
+                                vector += '\\'
+                            }
+                            let m = orthbasis[i][j].toString()
+                            vector += m + '\\'
+                        }
+                        vector += ' \\end{pmatrix}'
+                        output += vector
+                        if (i != vectornum - 1) {
+                           output += ', '
+                        }
+                    }
+                    output += ' \\right\\} $$'
+                    ogoutput += ' \\right\\} $$'
+                    document.getElementById('output').innerHTML = output;
+                    document.getElementById('og').innerHTML = ogoutput;
+                    MathJax.typeset();
+                    
+                    // Projection of a onto b
+                    function projection(a,b) {
+                        let dotproduct = 0;
+                        let magnitude = 0;
+                        for (let i = 0; i < vectorsize; i++) {
+                            dotproduct += a[i] * b[i]
+                            magnitude += b[i] * b[i]
+                        }
+                        let scalar = dotproduct / magnitude;
+                        let projection = new Array(vectorsize);
+                        for (let i = 0; i < vectorsize; i++) {
+                            projection[i] = scalar * b[i];
+                        }
+                        return projection;
+                    }
+                    
+                    // Returns sum of vector1 and vector2 (multiplied by some factor +- 1 for addition/subtraction)
+                    function sum(vector1, vector2, factor) {
+                        let sum = new Array(vectorsize);
+                        for (let i = 0; i < vectorsize; i++) {
+                            sum[i] = vector1[i] + factor * vector2[i];
+                        }
+                        return sum;
+                    }
+
+                    // Calculates sum of vectors in Gram-Schmidt algorithm
+                    function sumvectors(x) {
+                        for (let i = 0; i < counter; i++) {
+                            vectorsum = sum(vectorsum, projection(x, orthbasis[i]), 1)
+                        }
+                        counter++;
+                        return vectorsum;
+                    }
+                }
+            </script>
+        <button onclick="main()">Click me!</button>
+        <h2 id = "ogheader">ORIGINAL BASIS: </h2>
+        <h2 id = "og"></h2>
+        <h2 id = "outputheader">ORTHOGONAL BASIS: </h2>
+        <h2 id = "output"></h2>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+        <link href="styles.css" rel="stylesheet">
+         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <title>Eigenmatrices</title>
+    </head>
+    <body>
+        <header>
+            <h1>Linear Algebra: Vector Spaces</h1>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="spaces.html">Vector Spaces</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="basis.html">Basis</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="orthogonalsets.html">Orthogonal Sets</a>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-link" href="eigenmatrices.html">Eigenmatrices</a>
+                  </li>
+                </ul>
+            </div>
+            </nav>
+        </header>
+        
+        <div id = "diagonalization">
+            <h2>DIAGONALIZATION</h2>
+            <p>
+            Multiplying matrices together is already a rather tedious process: for every entry in the matrix product, you have to take the dot product of the corresponding row in the first matrix and the column in the second matrix.
+            Imagine, then, having to calculate the power of a matrix, such as \({\begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{bmatrix}}^{99}\)! This does get pretty difficult, 
+            but it's possible to develop a method to calculate the power of a matrix raised to any integer (sort-of) quickly. We can go about this by assuming that any matrix \(\textbf{A}\) can be represented
+            in terms of a diagonal matrix \(\textbf{D}\) and an invertible matrix \(\textbf{P}\) as follows: \(\textbf{D} = {\textbf{P}}^{-1}\textbf{A}\textbf{P}\). This 
+            expression of \(\textbf{A}\) may seem rather arbitrary, but notice when we attempt to calculate \({\textbf{A}}^2 \implies {\textbf{D}}^2 = {\textbf{P}}^{-1}\textbf{A}\textbf{P}
+            {\textbf{P}}^{-1}\textbf{A}\textbf{P} = {\textbf{P}}^{-1}{\textbf{A}}^2\textbf{P}\), where the inner \({\textbf{P}}^{-1}\textbf{P}\) term has cancelled out due
+            to being the product of a matrix and its inverse. In fact, this property can be extended (by using induction on \(k\)) to give the following important identity: 
+            $$ {\textbf{D}}^k = {\textbf{P}}^{-1}{\textbf{A}}^k\textbf{P} $$ You can then solve for \({\textbf{A}}^k\) by multiplying through by \(\textbf{P}\) and its inverse as necessary. And since \(\textbf{D}\) is a diagonal matrix, to find
+            its power to any integer, you just simply raise its diagonal entries to the same power.<br><br>
+            </p>
+        </div>
+        
+        <div id = "eigenvalues">
+            <h2>EIGENVALUES & EIGENVECTORS</h2>
+            
+            <p>
+                Then, how do we go about finding out this \(\textbf{P}\) and this \(\textbf{D}\)? Using the above equation: \(\textbf{D} = {\textbf{P}}^{-1}\textbf{A}\textbf{P}\) we can rearrange it to give
+                \(\textbf{P}\textbf{D} = \textbf{A}\textbf{P}.\) If we let \(\textbf{D} = 
+                \begin{bmatrix}
+                \lambda_1 & 0 & \dots & 0 \\
+                0 & \lambda_2 & \dots & 0 \\
+                \vdots & \vdots & \ddots & \vdots \\
+                0 & 0 & \dots & \lambda_{n}
+                \end{bmatrix}\)
+                and \(\textbf{P} = \begin{pmatrix} \textbf{v}_1 & \textbf{v}_2 & \dots & \textbf{v}_n \end{pmatrix}\) then by matrix multiplication we have that
+                \(\begin{bmatrix} \lambda_1\textbf{v}_1\ & \lambda_2\textbf{v}_2 & \dots & \lambda_2\textbf{v}_n \end{bmatrix} = \begin{bmatrix} \textbf{A}\textbf{v}_1
+                 & \textbf{A}\textbf{v}_2 & \dots & \textbf{A}\textbf{v}_n \end{bmatrix}\). Equating columns gives \(\textbf{A}\textbf{v}_i = \lambda_i\textbf{v}_i \, \forall 
+                \, 1 \leq i \leq n.\) This introduces the concepts of eigenvalues: values designated with the variable \(\lambda\) such that \(\textbf{A}\textbf{x} = \lambda\textbf{x}\)
+                for \(\textbf{x} \neq \textbf{0}\) (otherwise there would be an infinite amount of eigenvalues corresponding to \(\textbf{x}\)). A geometric interperetation of this is that 
+                \(\textbf{A}\) corresponds to some linear transformation, then eigenvalues corresponds to the scaling factor applied to a vector as a result of putting that vector through that 
+                given transformation. 
+            </p>
+            
+            <p>
+                For every eigenvalue \(\lambda\) of a matrix, there is a corresponding set of eigenvectors \(\textbf{v}\) such that \(\textbf{A}\textbf{v} = \lambda\textbf{v}\). These form
+                a basis for the eigenspace of \(\textbf{A}\) corresponding to an eigenvalue of \(\lambda\), denoted as \(E_{\lambda}[\textbf{A}]\). To find a basis for this eigenspace, we can 
+                rearrange the equation \(\textbf{A}\textbf{x} = \lambda\textbf{x}\) into the standard \(\textbf{A}\textbf{x} = \textbf{b}\) form, giving us \(
+                (\textbf{A} - \lambda \textbf{I})\textbf{x} = \textbf{0}.\) In light of this, we can see that \(E_{\lambda}[\textbf{A}] = \textrm{null} (\textbf{A} - \lambda \textbf{I}).\) If we
+                desire ALL non-zero solutions to this equation, then we must have that \(\textrm{det} (\textbf{A} - \lambda \textbf{I}) = 0\). This is because a matrix is invertible \(\iff\) its
+                determinant is zero. In the \(\implies\) direction, this is because \(\textbf{A}\textbf{B} = I = \textbf{B}\textbf{A} \implies \textrm{det} \textbf{A}\textbf{B} = \textrm{det}\textbf{A}\textrm{det}\textbf{B} = 1\) so
+                that \(\textrm{det} \textbf{A} \neq 0 \neq \textrm{det} \textbf{B}\). In the \(\impliedby\) direction, this is because a matrix is invertible if and only if it is row-equivalent to its corresponding 
+                identity matrix (check invertible matrix theorem), therefore there is a sequence of row operations taking \(\textbf{A} \rightarrow \textbf{I} \implies \textrm{det} \textbf{A} \neq 0\)
+                since row operations can only either change the sign of a matrix's determinant (swapping two rows) or be multiplied by some constant non-zero factor (when multiplying a row by some scalar).
+            </p>
+            
+            <p>
+                The above discussion allows us to find all the possible eigenvalues of a given matrix. In fact, the value of \(\textrm{det} (\textbf{A} - \lambda \textbf{I})\) is known as the <b>characteristic polynomial</b>
+                of \(\textbf{A}\). Therefore, the eigenvalues of \(\textbf{A}\) are just the roots of its characteristic polynomial. Once we have found the given eigenvalues of a matrix, we can easily compute the eigenvectors for each eigenvalue
+                through Gaussian elimination. Then, how do we know that a matrix is diagonalizable? Recall that for the diagonalization form \(\textbf{D} = {\textbf{P}}^{-1}\textbf{A}\textbf{P}\) the matrix \(\textbf{P}\) has its 
+                columns as the eigenvalues of \(\textbf{A}\). We use the fact that a matrix is invertible \(\iff\) its columns are linearly independent. This is true because the columns of a matrix are linearly independent if and only if
+                the only solution to \(\textbf{A}x = \textbf{0}\) is \(x = \textbf{0}\) (check using definition of matrix multiplication by a vector in terms of the columns of a matrix), hence a matrix is diagonalizable if and only if it has 
+                \(n\) linearly independent eigenvectors. Since each eigenvector is a basis of its own eigenspace, we can state the following important theorem:
+            </p>
+            
+            <div class = "theorem">
+                <h3 style="text-align: center;">THEOREM XI:</h3>
+                $$ \textrm{An } n \times n \textrm{ matrix }  \textbf{A} \textrm{ is diagonalizable } \iff \textrm{ it has } n \textrm{ distinct eigenvectors}. $$
+            </div>
+            
+            <p>
+                For example, the characteristic polynomial of \(\begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}\) is \((1 - \lambda)^2 = 0 \implies \lambda = 1\). Finding the eigenvector corresponding to this eigenvalue we now find 
+                \(\textrm{null} \begin{bmatrix} 0 & 1 \\ 0 & 0 \end{bmatrix} \implies \) only solution is \(t\begin{bmatrix} 1 \\ 0 \end{bmatrix}\). We only have one eigenvector and not two distinct ones, so this cannot be diagonalizable.
+            </p>
+        </div>
+        
+        <div id="algorithm">
+            We now summarize the basic diagonalization algorithm as follows:
+            <h3 style="text-align: center;">DIAGONALIZATION ALGORITHM</h3>
+            $$ 1. \textrm{ Find the characteristic polynomial of a matrix det} \textbf{A} - \lambda \textbf{I}. $$
+            $$ 2. \textrm{ Determine the eigenvalues of } \textbf{A} \textrm{ by finding the roots of its characteristic equation.} $$
+            $$ 3. \textrm{ Compute the corresponding eigenvectors for each eigenvalue of } \textbf{A}. \textrm{ If there are } n \textrm{ distinct eigenvectors as per Theorem XI then } \textbf{A} \textrm{ is diagonalizable.} $$
+            $$ 4. \textrm{ Diagonalize the matrix using the form } \textbf{D} = {\textbf{P}}^{-1}\textbf{A}\textbf{P}. \textbf{NOTE}: \textrm{The order in which you write the eigenvectors for } \textbf{P} \textrm{ must be in the same order as the eigenvalues in } \textbf{D}. $$
+        </div>
+        
+        <div id = "applications">
+            <h2>APPLICATIONS OF EIGENVALUES AND EIGENVECTORS</h2>
+            
+            <p>
+                The technique of using eigenvalues and eigenvectors has far-reaching applications in many different fields, being arguably one of the most useful theories to have ever come out of linear algebra. In fact, Google's search algorithm
+                uses eigenvalues to help ranks search results by their relevance; in physics, they are used to solve coupled systems of differential equations, etc.
+            </p>
+            
+            <h3>DIAGONALIZATION</h3>
+            
+            <p>Let's take a look at a few applications of eigenvalues and eigenvectors. The most obvious example is to find large powers of a matrix, such as \({\begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}}^{100}\).
+            The characteristic polynomial for this is \((1 - \lambda)^2 - 1 = 0 \implies \lambda = 0, 2\). Then, we just need to find \(\textrm{null} \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}\) and \(\textrm{null}
+            \begin{bmatrix} -1 & 1 \\ 1 & -1 \end{bmatrix}\) from which the eigenvectors are easily found to be \(t\begin{bmatrix} 1 \\ 1 \end{bmatrix}\) and \(t \begin{bmatrix} 1 \\ -1 \end{bmatrix}\). Therefore, 
+            \(\begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}\) is diagonalizable and we can write it in the diagonalization form as \({\begin{bmatrix} 0 & 0 \\ 0 & 2 \end{bmatrix}}^{100} = 
+            {\begin{bmatrix} 1 & 1 \\ -1 & 1 \end{bmatrix}}^{-1} {\begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}}^{100} \begin{bmatrix} 1 & 1 \\ -1 & 1 \end{bmatrix}\). Therefore, we have 
+            \({\begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}}^{100} = \begin{bmatrix} 1 & 1 \\ -1 & 1 \end{bmatrix} \begin{bmatrix} 0 & 0 \\ 0 & 2^{100} \end{bmatrix} {\begin{bmatrix} 1 & 1 \\ -1 & 1 \end{bmatrix}}^{-1} =
+            \begin{bmatrix} 1 & 1 \\ -1 & 1 \end{bmatrix} \begin{bmatrix} 0 & 0 \\ 0 & 2^{100} \end{bmatrix} \left(\frac{1}{2}\begin{bmatrix} 1 & -1 \\ 1 & 1 \end{bmatrix}\right) = \)
+            \( \frac{1}{2} \begin{bmatrix} 1 & 1 \\ -1 & 1 \end{bmatrix} \begin{bmatrix} 0 & 0 \\ 2^{100} & 2^{100} \end{bmatrix} = \frac{1}{2}\begin{bmatrix} 2^{100} &  2^{100} \\ 2^{100} & 2^{100} \end{bmatrix} =
+            \begin{bmatrix} 2^{99} &  2^{99} \\ 2^{99} & 2^{99} \end{bmatrix}\) 
+            </p>
+            
+            <h3>SQUARE ROOTS OF MATRICES</h3>
+            
+            <p>
+                Suppose we wanted to find \(\sqrt{\begin{bmatrix} 5 & 4 \\ 4 & 5 \end{bmatrix}}\). We obviously can't just directly take the square root of all the entries in the matrix, but we can perhaps instead diagonalize
+                it first instead. The characteristic polynomial of this matrix is \((5-\lambda)^2 - 16 = 0 \implies \lambda = 1, 9\). The eigenvectors are then \(t\begin{bmatrix} 1 \\ -1 \end{bmatrix}\) and 
+                \(t\begin{bmatrix} 1 \\ 1 \end{bmatrix}\) respectively. There are two diagonalizable eigenvectors so the original matrix is diagonalizable in the form \(\begin{bmatrix} 1 & 0 \\ 0 & 9 \end{bmatrix} = {\begin{bmatrix}
+                1 & 1 \\ -1 & 1 \end{bmatrix}}^{-1} \begin{bmatrix} 5 & 4 \\ 4 & 5 \end{bmatrix} \begin{bmatrix} 1 & 1 \\ -1 & 1 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ 0 & 9 \end{bmatrix} = {\begin{bmatrix}
+                1 & 1 \\ -1 & 1 \end{bmatrix}}^{-1} {\textbf{B}}^2 \begin{bmatrix} 1 & 1 \\ -1 & 1 \end{bmatrix}. \) We then use the diagonalization property mentioned above in reverse to give us the following four possible matrices for 
+                the diagonal matrix, which are \(\begin{bmatrix} \pm 1 & 0 \\ 0 & \pm 3 \end{bmatrix}\). We thus have \(\begin{bmatrix} \pm 1 & 0 \\ 0 & \pm 3 \end{bmatrix} = {\begin{bmatrix}
+                1 & 1 \\ -1 & 1 \end{bmatrix}}^{-1} {\textbf{B}} \begin{bmatrix} 1 & 1 \\ -1 & 1 \end{bmatrix}.\) Rearranging for \(\textbf{B}\) gives us \(\textbf{B} = \begin{bmatrix}
+                1 & 1 \\ -1 & 1 \end{bmatrix} \begin{bmatrix} \pm 1 & 0 \\ 0 & \pm 3 \end{bmatrix} {\begin{bmatrix} 1 & 1 \\ -1 & 1 \end{bmatrix}}^{-1} = \).
+                \(\begin{bmatrix} 1 & 1 \\ -1 & 1 \end{bmatrix} \begin{bmatrix} \pm 1 & 0 \\ 0 & \pm 3 \end{bmatrix} \left(\frac{1}{2}\begin{bmatrix} 1 & -1 \\ 1 & 1 \end{bmatrix}\right)\)
+                \(= \frac{1}{2}\begin{bmatrix} 1 & 1 \\ -1 & 1 \end{bmatrix} \begin{bmatrix} \pm 1 & \mp 1 \\ \pm 3 & \pm 3 \end{bmatrix}= \frac{1}{2} \begin{bmatrix} \pm 1 \pm 3 & \mp 1 \pm 3 \\ \mp 1 \pm 3 & \pm 1 \pm 3 \end{bmatrix} = 
+                \frac{1}{2} \begin{bmatrix} \pm 4 & \pm 2 \\ \pm 2 & \pm 4 \end{bmatrix} = \begin{bmatrix} \pm 2 & \pm 1 \\ \pm 1 & \pm 2 \end{bmatrix}.\) There are two more possible square roots which can be found by using the diagonal matrices
+                \(\begin{bmatrix} 1 & 0 \\ 0 & -3 \end{bmatrix}, \begin{bmatrix} -1 & 0 \\ 0 & 3 \end{bmatrix}\) as well.
+            </p>
+            
+            <h3>SYSTEM OF COUPLED DIFFERENTIAL EQUATIONS</h3>
+            
+            <p>
+                Sometimes, differential equations may form systems of two or more equations whose values are all dependent on each other, forming what is known as a system of differential equations. For example, 
+                \(\begin{cases} y_1^{'} = 3y_1 + y_2 \\ y_2^{'} = 3y_1 + 5y_2 \end{cases}\) is one example of a system of coupled differential equations. To solve this, we can rewrite it in matrix form as 
+                \(\begin{bmatrix} y_1^{'} \\ y_2^{'} \end{bmatrix} = \begin{bmatrix} 3 & 1 \\ 3 & 5 \end{bmatrix} \begin{bmatrix} y_1 \\ y_2 \end{bmatrix}, \textbf{A} = \begin{bmatrix} 3 & 1 \\ 3 & 5 \end{bmatrix} \).
+                We attempt to diagonalize \(\textbf{A}\), so we can write it in the form \(\textbf{A} = \textbf{P}\begin{bmatrix} \lambda_1 & 0 \\ 0 & \lambda_2 \end{bmatrix} {\textbf{P}}^{-1}\). Substituting this into the
+                previous equation, we obtain \(\begin{bmatrix} y_1^{'} \\ y_2^{'} \end{bmatrix} = \textbf{P}\begin{bmatrix} \lambda_1 & 0 \\ 0 & \lambda_2 \end{bmatrix} {\textbf{P}}^{-1} \begin{bmatrix} y_1 \\ y_2 \end{bmatrix} \implies \)
+                \({\textbf{P}}^{-1} \begin{bmatrix} y_1^{'} \\ y_2^{'} \end{bmatrix} = \begin{bmatrix} \lambda_1 & 0 \\ 0 & \lambda_2 \end{bmatrix} {\textbf{P}}^{-1} \begin{bmatrix} y_1 \\ y_2 \end{bmatrix} \implies {\textbf{w}}^{'} = 
+                \begin{bmatrix} \lambda_1 & 0 \\ 0 & \lambda_2 \end{bmatrix} \textbf{w}, \textbf{w} = {\textbf{P}}^{-1}\begin{bmatrix} y_1 \\ y_2 \end{bmatrix} = \begin{bmatrix} w_1 \\ w_2 \end{bmatrix} \). Therefore, we get that 
+                \({w_1}^{'} = \lambda_1w_1, {w_2}^{'} = \lambda_2w_2\) from which the solution to each differential equation is well-known to be \(w_1 = c_1e^{\lambda_1 x}, w_2 = c_2e^{\lambda_2 x}\). Using \(\textbf{w} = {\textbf{P}}^{-1} 
+                \begin{bmatrix} y_1 \\ y_2 \end{bmatrix} \implies \begin{bmatrix} y_1 \\ y_2 \end{bmatrix} = \textbf{P} \begin{bmatrix} c_1e^{\lambda_1 x} \\ c_2e^{\lambda_2 x} \end{bmatrix} \) from which the individual functions \(y_1, y_2\) 
+                can then be easily determined. Although I did not actually determine the eigenvalues or eigenvectors of \(\textbf{A}\) for me to obtain an explicit solution to each of the individual functions, a general solution can be derived 
+                in a manner similar to what has been done here:
+            </p>
+            
+            <p>
+                Suppose we have that a system of coupled differential equations can be represented in the following form: \({\textbf{f}}^{'} = \textbf{A} \textbf{f}\) where \(\textbf{f}\) is a matrix that contains each of the individual functions 
+                that we are solving for in this system. Diagonalizing \(\textbf{A}\) gives \(\textbf{A} = \textbf{P}\textbf{D}{\textbf{P}}^{-1} \implies {\textbf{f}}^{'} = \textbf{P}\textbf{D}{\textbf{P}}^{-1}\textbf{f}\) which we can rewrite in the 
+                form \({\textbf{w}}^{'} = \textbf{D}\textbf{w}, \textbf{w} = {\textbf{P}}^{-1}\textbf{f}\). Expanding the previous expression gives 
+                \[
+                    \begin{bmatrix}
+                    {w_1}^{'} \\
+                    {w_2}^{'} \\
+                    \vdots \\
+                    {w_n}^{'}
+                    \end{bmatrix} = 
+                    \begin{bmatrix}
+                        \lambda_1 & 0 & \dots & 0 \\
+                        0 & \lambda_2 & \dots & 0 \\
+                        \vdots & \vdots & \ddots & \vdots \\
+                        0 & 0 & \dots & \lambda_{n}
+                    \end{bmatrix}
+                    \begin{bmatrix}
+                    w_1 \\
+                    w_2 \\
+                    \vdots \\
+                    w_n
+                    \end{bmatrix} = 
+                    \begin{bmatrix}
+                        \lambda_1w_1 \\
+                        \lambda_2w_2 \\
+                        \vdots \\
+                        \lambda_nw_n \\
+                    \end{bmatrix}
+                \]
+                which necessarily implies that \({w_i}^{'} = \lambda_iw_i \, \forall \, 1 \leq i \leq n\). The solution to this form of differential equation is just \(w_i = c_ie^{\lambda_i x}\). 
+                We can then use the expression \(\textbf{w} = {\textbf{P}}^{-1}\textbf{f}\) to solve for \(\textbf{f}\) giving us \(\textbf{f} = \textbf{P}\textbf{w} = \begin{bmatrix} \textbf{v}_1 &
+                \textbf{v}_2 & \dots & \textbf{v}_n \end{bmatrix} \begin{bmatrix} c_1e^{\lambda_1 x} \\ c_2e^{\lambda_2 x} \\ \vdots \\ c_ne^{\lambda_n x} \end{bmatrix} = c_1e^{\lambda_1x}\textbf{v}_1 + 
+                c_2e^{\lambda_2 x}\textbf{v}_2 + \dots + c_ne^{\lambda_n x}\textbf{v}_n = \sum\limits_{i=1}^n c_ie^{\lambda_i x}\textbf{v}_i\). 
+            </p>
+        </div>
+    </body>
+</html>
